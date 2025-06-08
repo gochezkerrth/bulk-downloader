@@ -1,0 +1,442 @@
+# Bulk Fanfic Downloader - Complete Setup Guide
+
+This guide provides detailed, step-by-step instructions for setting up the Bulk Fanfic Downloader on Windows and macOS.
+
+## Table of Contents
+
+1. [Understanding the Basics](#understanding-the-basics)
+2. [Windows Setup](#windows-setup)
+3. [macOS Setup](#macos-setup)
+4. [First Run Configuration](#first-run-configuration)
+5. [Advanced Configuration](#advanced-configuration)
+6. [Verification Steps](#verification-steps)
+
+## Understanding the Basics
+
+### What You're Installing
+
+The Fanfic Downloader is a Python application, which means:
+- **Python**: A programming language that runs the code
+- **Dependencies**: Additional code libraries the app needs
+- **GUI Framework**: The visual interface you'll interact with
+
+### Why Each Component Matters
+
+1. **Virtual Environment**: Keeps this app's code separate from other Python projects
+2. **Session Cookies**: Allows the app to act as "you" when downloading
+3. **File Permissions**: Ensures the app can save files where you want them
+
+## Windows Setup
+
+### Method 1: PowerShell (Recommended)
+
+#### Step 1: Install Python
+
+1. **Check if Python is installed:**
+   ```powershell
+   python --version
+   ```
+   If you see "Python 3.8" or higher, skip to Step 2.
+
+2. **Download Python:**
+   - Visit [python.org](https://www.python.org/downloads/)
+   - Download Python 3.9 or higher
+   - **IMPORTANT**: Check "Add Python to PATH" during installation
+
+3. **Verify installation:**
+   ```powershell
+   python --version
+   pip --version
+   ```
+
+#### Step 2: Install Git
+
+1. **Check if Git is installed:**
+   ```powershell
+   git --version
+   ```
+
+2. **If not installed:**
+   - Download from [git-scm.com](https://git-scm.com/download/win)
+   - Use default settings during installation
+
+#### Step 3: Download the Project
+
+1. **Open PowerShell as Administrator:**
+   - Right-click Start button
+   - Select "Windows PowerShell (Admin)"
+
+2. **Navigate to where you want the app:**
+   ```powershell
+   cd C:\Users\YourUsername\Documents
+   ```
+
+3. **Clone the repository:**
+   ```powershell
+   git clone https://github.com/yourusername/fanfic-downloader.git
+   cd fanfic-downloader
+   ```
+
+#### Step 4: Create Virtual Environment
+
+1. **Create the environment:**
+   ```powershell
+   python -m venv venv
+   ```
+   
+   Why: This creates an isolated space for the app's dependencies
+
+2. **Activate it:**
+   ```powershell
+   .\venv\Scripts\Activate
+   ```
+   
+   You should see (venv) at the start of your command prompt
+
+3. **If you get an execution policy error:**
+   ```powershell
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+   ```
+   Then try activating again
+
+#### Step 5: Install Dependencies
+
+1. **Install required packages:**
+   ```powershell
+   pip install -r requirements-windows.txt
+   ```
+   
+   This installs:
+   - `requests`: For downloading web pages
+   - `beautifulsoup4`: For parsing HTML
+   - `ebooklib`: For creating EPUB files
+   - `fpdf2`: For creating PDF files
+   - `pillow`: For handling images
+   - And more...
+
+2. **If you encounter errors:**
+   ```powershell
+   python -m pip install --upgrade pip
+   pip install wheel
+   ```
+   Then try again
+
+#### Step 6: Run the Application
+
+```powershell
+python fanfic_downloader/main.py
+```
+
+### Method 2: Anaconda Navigator
+
+#### Step 1: Install Anaconda
+
+1. **Download Anaconda:**
+   - Visit [anaconda.com](https://www.anaconda.com/products/individual)
+   - Download the Python 3.9 version
+   - Install with default settings
+
+#### Step 2: Using Anaconda Prompt
+
+1. **Open Anaconda Prompt** from Start Menu
+
+2. **Create new environment:**
+   ```bash
+   conda create -n fanfic-downloader python=3.9
+   ```
+   
+   Type 'y' when prompted
+
+3. **Activate environment:**
+   ```bash
+   conda activate fanfic-downloader
+   ```
+
+4. **Navigate to project location:**
+   ```bash
+   cd C:\Users\YourUsername\Documents
+   git clone https://github.com/yourusername/fanfic-downloader.git
+   cd fanfic-downloader
+   ```
+
+5. **Install dependencies:**
+   ```bash
+   pip install -r requirements-windows.txt
+   ```
+
+6. **Run the app:**
+   ```bash
+   python fanfic_downloader/main.py
+   ```
+
+### Creating a Desktop Shortcut (Windows)
+
+1. **Create a batch file** `FanficDownloader.bat`:
+   ```batch
+   @echo off
+   cd /d "C:\Users\YourUsername\Documents\fanfic-downloader"
+   call venv\Scripts\activate
+   python fanfic_downloader/main.py
+   pause
+   ```
+
+2. **Right-click** the .bat file → Send to → Desktop
+
+3. **Optional**: Change the icon:
+   - Right-click shortcut → Properties
+   - Click "Change Icon"
+
+## macOS Setup
+
+### Step 1: Install Prerequisites
+
+1. **Check Python version:**
+   ```bash
+   python3 --version
+   ```
+
+2. **Install Homebrew** (if needed):
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+
+3. **Install Python 3.9+** (if needed):
+   ```bash
+   brew install python@3.9
+   ```
+
+4. **Install Git:**
+   ```bash
+   brew install git
+   ```
+
+### Step 2: Download and Setup
+
+1. **Open Terminal**
+
+2. **Navigate to desired location:**
+   ```bash
+   cd ~/Documents
+   ```
+
+3. **Clone repository:**
+   ```bash
+   git clone https://github.com/yourusername/fanfic-downloader.git
+   cd fanfic-downloader
+   ```
+
+4. **Create virtual environment:**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+5. **Install dependencies:**
+   ```bash
+   pip install -r requirements-mac.txt
+   ```
+
+### Step 3: Run the Application
+
+```bash
+python fanfic_downloader/main.py
+```
+
+### Creating an App Bundle (macOS)
+
+1. **Install py2app:**
+   ```bash
+   pip install py2app
+   ```
+
+2. **Run build script:**
+   ```bash
+   python build_mac.py
+   ```
+
+3. **Find your app** in `dist/FanficDownloader.app`
+
+4. **Drag to Applications** folder
+
+## First Run Configuration
+
+### 1. Initial Setup Wizard
+
+On first launch, the app will guide you through:
+
+1. **Default Download Location**
+   - Choose where to save stories
+   - Recommended: `Documents/FANFICTION`
+
+2. **Session Cookie Setup**
+   - Follow the in-app guide to get your cookie
+   - Paste it in the secure input field
+
+3. **Format Preferences**
+   - Select default output format
+   - Choose quality settings
+
+### 2. Testing Your Setup
+
+1. **Test Single Download:**
+   - Go to "Single Download" tab
+   - Paste: `https://archiveofourown.org/works/[any-public-work-id]`
+   - Click "Download"
+
+2. **Verify Output:**
+   - Check your download folder
+   - Open the downloaded file
+   - Check the metadata JSON file
+
+### 3. Setting Up Bulk Downloads
+
+1. **Bookmarks Setup:**
+   - Get your bookmarks URL from AO3 profile
+   - Test with "Recent Only" checked first
+
+2. **Rate Limiting:**
+   - Settings → Downloads → Delay between downloads
+   - Recommended: 3-5 seconds
+
+## Advanced Configuration
+
+### Configuration File Location
+
+- **Windows**: `%APPDATA%\FanficDownloader\config.ini`
+- **macOS**: `~/Library/Application Support/FanficDownloader/config.ini`
+
+### Sample Configuration
+
+```ini
+[General]
+theme = dark
+language = en
+check_updates = true
+
+[Downloads]
+default_format = epub
+default_location = C:\Users\YourName\Documents\FANFICTION
+create_author_folders = true
+create_fandom_folders = true
+download_delay = 3
+retry_attempts = 3
+timeout = 30
+
+[Session]
+cookie_expiry_warning = true
+auto_refresh_attempt = false
+
+[Metadata]
+save_json = true
+embed_in_epub = true
+include_stats = true
+include_notes = true
+
+[Advanced]
+debug_mode = false
+parallel_downloads = 3
+chunk_size = 1024
+```
+
+### Environment Variables
+
+For advanced users, you can set:
+
+```bash
+# Windows
+set FANFIC_DOWNLOADER_CONFIG=C:\custom\path\config.ini
+set FANFIC_DOWNLOADER_DEBUG=1
+
+# macOS/Linux
+export FANFIC_DOWNLOADER_CONFIG=/custom/path/config.ini
+export FANFIC_DOWNLOADER_DEBUG=1
+```
+
+## Verification Steps
+
+### 1. Check Python Installation
+
+```bash
+python --version
+pip list
+```
+
+Should show Python 3.8+ and all required packages
+
+### 2. Test Import
+
+```python
+python
+>>> import requests
+>>> import bs4
+>>> import ebooklib
+>>> exit()
+```
+
+No errors should appear
+
+### 3. Check Permissions
+
+Ensure the app can write to:
+- Download directory
+- Config directory
+- Temp directory
+
+### 4. Network Test
+
+```bash
+curl https://archiveofourown.org
+```
+
+Should return HTML content
+
+## Troubleshooting Installation
+
+### Windows Issues
+
+#### "Python not found"
+- Reinstall Python with "Add to PATH" checked
+- Or manually add: `C:\Users\YourName\AppData\Local\Programs\Python\Python39` to PATH
+
+#### "Permission denied"
+- Run PowerShell as Administrator
+- Check antivirus isn't blocking
+
+#### "Module not found"
+- Ensure virtual environment is activated
+- Reinstall requirements: `pip install -r requirements-windows.txt --force-reinstall`
+
+### macOS Issues
+
+#### "SSL Certificate Error"
+```bash
+pip install --upgrade certifi
+```
+
+#### "Permission denied for /usr/local"
+Use virtual environment instead of system Python
+
+#### "Tkinter not found"
+```bash
+brew install python-tk
+```
+
+### Common Issues
+
+#### Slow Installation
+- Use a faster mirror: `pip install -i https://pypi.douban.com/simple/ -r requirements.txt`
+
+#### Behind Proxy
+```bash
+pip install --proxy http://proxy.example.com:8080 -r requirements.txt
+```
+
+## Next Steps
+
+1. Read the [User Guide](USER_GUIDE.md) for detailed usage instructions
+2. Configure your preferences in Settings
+3. Set up your session cookie
+4. Try your first download
+5. Join our community for tips and support
+
+Remember: The app is designed to respect authors and AO3's terms of service. Use responsibly!
