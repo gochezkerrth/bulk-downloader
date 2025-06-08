@@ -1,0 +1,47 @@
+# Core dependencies for macOS
+requests>=2.31.0
+beautifulsoup4>=4.12.2
+lxml>=4.9.3
+html5lib>=1.1
+
+# Ebook creation
+ebooklib>=0.18
+fpdf2>=2.7.5
+PyPDF2>=3.0.1
+reportlab>=4.0.4
+
+# Image processing
+Pillow>=10.0.0
+
+# GUI Framework
+# tkinter should be included with Python on macOS
+# If not, install python-tk via homebrew
+
+# Data handling
+python-dateutil>=2.8.2
+jsonschema>=4.19.0
+
+# File handling
+pathlib2>=2.3.7
+python-magic>=0.4.27  # macOS version
+
+# Networking
+urllib3>=2.0.4
+certifi>=2023.7.22
+
+# MOBI conversion (optional but recommended)
+python-mobi>=0.3.3
+
+# macOS specific
+pyobjc-core>=9.2  # For native macOS features
+pyobjc-framework-Cocoa>=9.2  # For notifications
+
+# Development tools (optional)
+py2app>=0.28.1  # For creating .app bundles
+
+# Testing (optional)
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Progress bars and UI enhancements
+tqdm>=4.66.1
